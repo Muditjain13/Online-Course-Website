@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Website</title>
+    <title>CourseHub - Professional Online Courses</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
+    <!-- Header -->
     <header>
         <nav>
             <div class="logo">
@@ -14,91 +18,58 @@
             </div>
             <ul class="nav-links">
                 <li><a href="/">Home</a></li>
-                <li><a href="#">Courses</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <section class="hero">
-            <h2>Welcome to CourseHub</h2>
-            <p>Explore the best courses tailored to your interests!</p>
+    <!-- Main Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Unlock Your Potential with Professional Online Courses</h2>
+            <p>Learn from industry experts and gain in-demand skills at your own pace. Start your journey today!</p>
+            <a href="courses.html" class="btn-primary">Browse Courses</a>
+        </div>
+    </section>
+
+    <!-- What We Offer -->
+    <section class="what-we-offer">
+        <h2>What We Offer</h2>
+        <p>At CourseHub, we provide a broad selection of online courses to help you excel in your career or personal development. Whether you're a beginner or an experienced professional, our courses are tailored to meet your needs.</p>
+        
         </section>
 
-        <section class="filter">
-            <label for="category">Filter by Category:</label>
-            <select id="category">
-                <option value="">All</option>
-                <option value="Web Development">Web Development</option>
-                <option value="AI">AI</option>
-                <option value="Data Science">Data Science</option>
-                <option value="Cybersecurity">Cybersecurity</option>
-            </select>
-        </section>
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2>What Our Learners Say</h2>
+        <div class="testimonial">
+            <p>"CourseHub's Web Development course helped me land my first job as a developer. The material was clear and easy to follow." - Sarah M.</p>
+        </div>
+        <div class="testimonial">
+            <p>"I was able to switch careers thanks to the Data Science program. I now work as a data analyst at a top company!" - John D.</p>
+        </div>
+    </section>
 
-        <section class="courses">
-            <h2>Featured Courses</h2>
-            <div class="course-list" id="course-list">
-                <!-- Courses will be displayed here dynamically -->
-            </div>
-        </section>
-    </main>
+    <!-- Call-to-Action Section -->
+    <section class="cta">
+        <h2>Start Learning Today</h2>
+        <p>Join thousands of learners who have successfully advanced their careers with CourseHub. What are you waiting for?</p>
+        <a href="courses.html" class="btn-primary">Browse Courses</a>
+    </section>
 
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2025 CourseHub. All rights reserved.</p>
+        <div class="footer-content">
+            <p>&copy; 2025 CourseHub. All Rights Reserved.</p>
+            <ul>
+                <li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="terms.html">Terms & Conditions</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
     </footer>
-
-    <script>
-        const categorySelect = document.getElementById('category');
-        const courseList = document.getElementById('course-list');
-        const coursesHeading = document.querySelector('.courses h2');  // Select the heading
-
-        // Function to load courses based on category
-        function loadCourses(category = '') {
-            let url = '/courses';
-            if (category) url += `/filter/${encodeURIComponent(category)}`;
-
-            fetch(url)
-                .then(res => res.json())
-                .then(data => {
-                    courseList.innerHTML = '';  // Clear previous courses
-
-                    // Change heading based on selected category
-                    if (category) {
-                        coursesHeading.innerHTML = `Featured ${category} Courses`;
-                    } else {
-                        coursesHeading.innerHTML = 'Featured Courses';
-                    }
-
-                    // Display courses or a no results message
-                    if (data.length === 0) {
-                        courseList.innerHTML = '<p>No courses found for this category.</p>';
-                    } else {
-                        data.forEach(course => {
-                            const card = document.createElement('div');
-                            card.className = 'course-card';
-                            card.innerHTML = `
-                                <img src="${course.image}" alt="${course.title}">
-                                <h3>${course.title}</h3>
-                                <p>${course.description}</p>
-                            `;
-                            courseList.appendChild(card);
-                        });
-                    }
-                });
-        }
-
-        // Listen for category selection change
-        categorySelect.addEventListener('change', () => {
-            const selected = categorySelect.value;
-            // Only update courses, no URL change
-            loadCourses(selected);
-        });
-
-        // Initial load of all courses
-        loadCourses();
-    </script>
 </body>
+
 </html>
