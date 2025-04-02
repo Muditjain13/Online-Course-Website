@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Courses - CourseHub</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your external CSS -->
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>CourseHub</h1>
+            </div>
+            <ul >                <li><a href="/">Home</a></li>
+<li><a href="courses.html">Courses</a></li>
+<li><a href="recommendations.html">Recommendations</a></li>
+<li><a href="mycourses.html">My Courses</a></li>
+<li><a href="about.html">About</a></li>
+                <li id="loginLink"><a href="login.html">Login</a></li>
+                <li id="registerLink"><a href="register.html">Register</a></li>
+                <li id="logoutLink" style="display: none;"><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- My Courses Section -->
+    <main>
+        <section class="courses">
+            <h2>My Courses</h2>
+            <div class="course-list" id="my-course-list">
+                <!-- My courses will be displayed here dynamically -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CourseHub. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Fetch My Courses from the backend
+        function fetchMyCourses() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Please login to view your courses.');
+                window.location.href = '/index.html';  // Redirect to login page if not logged in
+                return;
+            }
+
+            fetch('/courses/mycourses', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    const courseList = document.getElementById('my-course-list');
+                    courseList.innerHTML = '';  // Clear the list before adding new courses
+
+                    if (data.length === 0) {
+                        courseList.innerHTML = '<p>You have not purchased any courses yet.</p>';
+                    } else {
+                        // Display each course
+                        data.forEach(course => {
+                            const card = document.createElement('div');
+                            card.className = 'course-card';
+                            card.innerHTML = `
+                                    <img src="${course.courseId.image}" alt="${course.courseId.title}">
+                                    <h3>${course.courseId.title}</h3>
+                                    <p>${course.courseId.description}</p>
+                                    <p>Price: ₹${course.courseId.price}</p>
+                                `;
+                            courseList.appendChild(card);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching my courses:', error);
+                    alert('An error occurred. Please try again later.');
+                });
+        }
+
+        // Call the function to fetch courses on page load
+        fetchMyCourses();
+
+        // Logout function to clear token
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = '/index.html';  // Redirect to login after logout
+        }
+
+
+       
+        // Wait for the DOM to be fully loaded
+            document.addEventListener("DOMContentLoaded", function() {
+            // Check if a token exists in localStorage (meaning the user is logged in)
+            if (localStorage.getItem('token')) {
+                // If the token exists, hide login/register and show logout
+                document.getElementById('loginLink').style.display = 'none';
+            document.getElementById('registerLink').style.display = 'none';
+            document.getElementById('logoutLink').style.display = 'block';
+            }
+        });
+
+            function logout() {
+                // Clear the token from localStorage
+                localStorage.removeItem('token');
+            // Redirect to the home or login page
+            window.location.href = '/index.html';
+        }
+    </script>
+    
+</body>
+</html>

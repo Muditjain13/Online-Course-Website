@@ -15,8 +15,12 @@
             <ul class="nav-links">
                 <li><a href="/">Home</a></li>
                 <li><a href="courses.html">Courses</a></li>
+                <li><a href="recommendations.html">Recommendations</a></li>
+                <li><a href="mycourses.html">My Courses</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li id="loginLink"><a href="login.html">Login</a></li>
+                <li id="registerLink"><a href="register.html">Register</a></li>
+                <li id="logoutLink" style="display: none;"><a href="#" onclick="logout()">Logout</a></li>
             </ul>
         </nav>
     </header>
@@ -53,5 +57,24 @@
     <footer>
         <p>&copy; 2025 CourseHub. All rights reserved.</p>
     </footer>
+    <script>
+    // Wait for the DOM to be fully loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        // Check if a token exists in localStorage (meaning the user is logged in)
+        if (localStorage.getItem('token')) {
+            // If the token exists, hide login/register and show logout
+            document.getElementById('loginLink').style.display = 'none';
+            document.getElementById('registerLink').style.display = 'none';
+            document.getElementById('logoutLink').style.display = 'block';
+        }
+    });
+
+    function logout() {
+        // Clear the token from localStorage
+        localStorage.removeItem('token');
+        // Redirect to the home or login page
+        window.location.href = '/index.html';
+    }
+    </script>
 </body>
 </html>

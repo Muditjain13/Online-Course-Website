@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 
-const courseSchema = new mongoose.Schema({
+// Check if the model already exists to prevent overwriting
+const Course = mongoose.models.Course || mongoose.model('Course', new mongoose.Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
-    image: { type: String, required: true }, // URL or file path to image
-    category: { type: String, required: true }, // e.g., "Development", "AI"
-    topic: { type: String }, // e.g., "Machine Learning", "Web Dev"
-    difficulty: { type: String }, // Beginner, Intermediate, Advanced
-    certification: { type: Boolean, default: false }, // Does it give a certificate?
-});
-
-const Course = mongoose.model('Course', courseSchema);
+    image: { type: String, required: true },
+    category: { type: String, required: true },
+    topic: { type: String, required: true },
+    difficulty: { type: String, required: true },
+    certification: { type: Boolean, required: true },
+    price: { type: Number, required: true }  // Added price field
+}));
 
 module.exports = Course;

@@ -8,6 +8,11 @@ const notificationRoutes = require('./routes/notifications');
 const certificationRoutes = require('./routes/certification');
 const topicRoutes = require('./routes/topic');
 const myCoursesRoutes = require('./routes/mycourses');
+const recommendationRoutes = require('./routes/recommendations');
+const purchaseRoutes = require('./routes/purchase');
+const bodyParser = require('body-parser');
+const authRouter = require('./routes/auth');
+
 
 const app = express();
 const PORT = 3000;
@@ -15,6 +20,8 @@ const PORT = 3000;
 // Middleware
 app.use(express.json());
 app.use(cors());
+
+app.use(bodyParser.json());
 
 // MongoDB connection
 mongoose.connect('mongodb://localhost/courseDB', {
@@ -33,12 +40,17 @@ app.use('/notifications', notificationRoutes);
 app.use('/certification', certificationRoutes);
 app.use('/topic', topicRoutes);
 app.use('/my-courses', myCoursesRoutes);
+app.use('/recommendations', recommendationRoutes);
+app.use('/purchase', purchaseRoutes);
+app.use('/auth', authRouter)
+
 
 // Serve static files and the homepage
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
 
 // Start server
 app.listen(PORT, () => {

@@ -16,7 +16,8 @@ mongoose.connect('mongodb://localhost/courseDB', { useNewUrlParser: true, useUni
                 category: 'Development',
                 topic: 'Web Development',
                 difficulty: 'Beginner',
-                certification: true
+                certification: true,
+                price: 999
             },
             {
                 title: 'Advanced JavaScript for Developers',
@@ -25,7 +26,8 @@ mongoose.connect('mongodb://localhost/courseDB', { useNewUrlParser: true, useUni
                 category: 'Development',
                 topic: 'JavaScript',
                 difficulty: 'Intermediate',
-                certification: false
+                certification: false,
+                price: 1500
             },
 
             // AI Courses
@@ -36,7 +38,8 @@ mongoose.connect('mongodb://localhost/courseDB', { useNewUrlParser: true, useUni
                 category: 'AI',
                 topic: 'Machine Learning',
                 difficulty: 'Beginner',
-                certification: true
+                certification: true,
+                price: 1200
             },
             {
                 title: 'Deep Learning with Python',
@@ -45,7 +48,8 @@ mongoose.connect('mongodb://localhost/courseDB', { useNewUrlParser: true, useUni
                 category: 'AI',
                 topic: 'Deep Learning',
                 difficulty: 'Advanced',
-                certification: true
+                certification: true,
+                price: 2000
             },
 
             // Data Science Courses
@@ -56,7 +60,8 @@ mongoose.connect('mongodb://localhost/courseDB', { useNewUrlParser: true, useUni
                 category: 'Data Science',
                 topic: 'Data Science',
                 difficulty: 'Beginner',
-                certification: false
+                certification: false,
+                price: 999
             },
             {
                 title: 'Advanced Data Analysis with R',
@@ -65,7 +70,8 @@ mongoose.connect('mongodb://localhost/courseDB', { useNewUrlParser: true, useUni
                 category: 'Data Science',
                 topic: 'Data Analysis',
                 difficulty: 'Advanced',
-                certification: true
+                certification: true,
+                price: 1800
             },
 
             // Cybersecurity Courses
@@ -76,7 +82,8 @@ mongoose.connect('mongodb://localhost/courseDB', { useNewUrlParser: true, useUni
                 category: 'Cybersecurity',
                 topic: 'Cybersecurity',
                 difficulty: 'Advanced',
-                certification: true
+                certification: true,
+                price: 2200
             },
             {
                 title: 'Ethical Hacking and Penetration Testing',
@@ -85,7 +92,8 @@ mongoose.connect('mongodb://localhost/courseDB', { useNewUrlParser: true, useUni
                 category: 'Cybersecurity',
                 topic: 'Penetration Testing',
                 difficulty: 'Intermediate',
-                certification: false
+                certification: false,
+                price: 1600
             },
 
             // Web Development Courses
@@ -96,7 +104,8 @@ mongoose.connect('mongodb://localhost/courseDB', { useNewUrlParser: true, useUni
                 category: 'Development',
                 topic: 'Web Design',
                 difficulty: 'Beginner',
-                certification: false
+                certification: false,
+                price: 800
             },
             {
                 title: 'Building Web Applications with Node.js',
@@ -105,7 +114,8 @@ mongoose.connect('mongodb://localhost/courseDB', { useNewUrlParser: true, useUni
                 category: 'Development',
                 topic: 'Web Development',
                 difficulty: 'Intermediate',
-                certification: true
+                certification: true,
+                price: 1300
             },
 
             // AI Courses
@@ -116,7 +126,8 @@ mongoose.connect('mongodb://localhost/courseDB', { useNewUrlParser: true, useUni
                 category: 'AI',
                 topic: 'Business AI',
                 difficulty: 'Beginner',
-                certification: true
+                certification: true,
+                price: 1500
             },
             {
                 title: 'Natural Language Processing with Python',
@@ -125,7 +136,8 @@ mongoose.connect('mongodb://localhost/courseDB', { useNewUrlParser: true, useUni
                 category: 'AI',
                 topic: 'Natural Language Processing',
                 difficulty: 'Intermediate',
-                certification: true
+                certification: true,
+                price: 1700
             },
 
             // Data Science Courses
@@ -136,7 +148,8 @@ mongoose.connect('mongodb://localhost/courseDB', { useNewUrlParser: true, useUni
                 category: 'Data Science',
                 topic: 'Data Visualization',
                 difficulty: 'Beginner',
-                certification: false
+                certification: false,
+                price: 950
             },
             {
                 title: 'Big Data Analytics with Hadoop',
@@ -145,7 +158,8 @@ mongoose.connect('mongodb://localhost/courseDB', { useNewUrlParser: true, useUni
                 category: 'Data Science',
                 topic: 'Big Data',
                 difficulty: 'Advanced',
-                certification: true
+                certification: true,
+                price: 2100
             },
 
             // Cybersecurity Courses
@@ -156,7 +170,8 @@ mongoose.connect('mongodb://localhost/courseDB', { useNewUrlParser: true, useUni
                 category: 'Cybersecurity',
                 topic: 'Network Security',
                 difficulty: 'Beginner',
-                certification: true
+                certification: true,
+                price: 1400
             },
             {
                 title: 'Cloud Security and Data Protection',
@@ -165,7 +180,8 @@ mongoose.connect('mongodb://localhost/courseDB', { useNewUrlParser: true, useUni
                 category: 'Cybersecurity',
                 topic: 'Cloud Security',
                 difficulty: 'Intermediate',
-                certification: false
+                certification: false,
+                price: 1300
             }
         ];
 
