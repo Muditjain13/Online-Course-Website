@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require('../models/user');
 const Course = require('../models/course');
 const auth = require('../routes/authMiddleware');  // Your authentication middleware
+const UserCourseInteraction = require('../models/usercourseinteraction');
 
 // Simulate course purchase
 router.post('/buy/:courseId', auth, async (req, res) => {
@@ -31,7 +32,12 @@ router.post('/buy/:courseId', auth, async (req, res) => {
         await user.save();
 
         res.status(200).json({ message: 'Course purchased successfully' });
-        
+        const interaction = new UserCourseInteraction({
+            userId: user._id,
+            courseId: course._id,
+            interactionType: 'purchased'
+        });
+        await interaction.save();
         
         
     } catch (error) {

@@ -8,10 +8,11 @@ const notificationRoutes = require('./routes/notifications');
 const certificationRoutes = require('./routes/certification');
 const topicRoutes = require('./routes/topic');
 const myCoursesRoutes = require('./routes/mycourses');
-const recommendationRoutes = require('./routes/recommendations');
+
 const purchaseRoutes = require('./routes/purchase');
 const bodyParser = require('body-parser');
 const authRouter = require('./routes/auth');
+const recommendationRoutes = require('./routes/recommendationroutes');
 
 
 const app = express();
@@ -40,9 +41,10 @@ app.use('/notifications', notificationRoutes);
 app.use('/certification', certificationRoutes);
 app.use('/topic', topicRoutes);
 app.use('/my-courses', myCoursesRoutes);
-app.use('/recommendations', recommendationRoutes);
+app.use('/api', recommendationRoutes);
 app.use('/purchase', purchaseRoutes);
 app.use('/auth', authRouter)
+
 
 
 // Serve static files and the homepage

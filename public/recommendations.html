@@ -1,11 +1,13 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recommended Courses</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <header>
         <nav>
@@ -41,57 +43,69 @@
     <script>
         const courseList = document.getElementById('course-list');
 
-        // Simulate recommended courses fetching
+        // Function to load recommended courses from the backend
         function loadRecommendedCourses() {
-            const recommendedCourses = [
-                {
-                    _id: 'course-id-1',
-                    title: 'Introduction to Web Development',
-                    description: 'Learn the basics of web development, including HTML, CSS, and JavaScript.',
-                    price: 999
-                },
-                {
-                    _id: 'course-id-2',
-                    title: 'Machine Learning Fundamentals',
-                    description: 'Dive into the world of AI and learn machine learning techniques.',
-                    price: 1200
-                },
-                {
-                    _id: 'course-id-3',
-                    title: 'Advanced Cybersecurity Techniques',
-                    description: 'Master cybersecurity concepts and learn how to protect against advanced threats.',
-                    price: 1500
-                }
-            ];
+            const token = localStorage.getItem('token'); // Get token from localStorage
 
-            courseList.innerHTML = '';  // Clear previous courses
+            if (!token) {
+                alert('Please login to see recommendations.');
+                return;
+            }
 
-            recommendedCourses.forEach(course => {
-                const card = document.createElement('div');
-                card.className = 'course-card';
-                card.innerHTML = `
-                        <h3>${course.title}</h3>
-                        <p>${course.description}</p>
-                        <p>Price: ₹${course.price}</p>
-                        <button class="buy-btn" onclick="buyCourse('${course._id}')">Buy Course</button>
-                    `;
-                courseList.appendChild(card);
-            });
+            fetch('/api/recommendations', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    // Clear previous courses
+                    courseList.innerHTML = '';
+
+                    // Check if recommendations were found
+                    if (data.length === 0) {
+                        courseList.innerHTML = '<p>No recommendations available.</p>';
+                    } else {
+                        // Loop through the recommended courses and display them
+                        data.forEach(course => {
+                            const card = document.createElement('div');
+                            card.className = 'course-card';
+                            card.innerHTML = `
+                                    <h3>${course.title}</h3>
+                                    <p>${course.description}</p>
+                                    <p>Price: ₹${course.price}</p>
+                                    <button class="buy-btn" onclick="buyCourse('${course._id}')">Buy Course</button>
+                                `;
+                            courseList.appendChild(card);
+                        });
+                    }
+                })
+                .catch(error => {
+                    alert('Error fetching recommendations. Please try again later.');
+                });
         }
 
         // Handle course purchase
         function buyCourse(courseId) {
-            const userId = 'user-id-placeholder';  // Replace with actual user ID
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Please login to buy the course.');
+                return;
+            }
 
-            // Disable the button to prevent multiple clicks
             const buyButton = event.target;
             buyButton.disabled = true;
+
+            // Get the user ID (this will be available in your backend based on JWT)
+            const userId = 'user-id-placeholder'; // Replace with actual userId if required.
 
             // Make a POST request to the backend to simulate buying the course
             fetch(`/purchase/buy/${courseId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`, // Send token for authorization
                 },
                 body: JSON.stringify({ userId: userId })
             })
@@ -110,31 +124,28 @@
                 });
         }
 
-        // Load recommended courses on page load
-        loadRecommendedCourses();
-
-
-       
         // Wait for the DOM to be fully loaded
-            document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             // Check if a token exists in localStorage (meaning the user is logged in)
             if (localStorage.getItem('token')) {
                 // If the token exists, hide login/register and show logout
                 document.getElementById('loginLink').style.display = 'none';
-            document.getElementById('registerLink').style.display = 'none';
-            document.getElementById('logoutLink').style.display = 'block';
+                document.getElementById('registerLink').style.display = 'none';
+                document.getElementById('logoutLink').style.display = 'block';
             }
         });
 
-            function logout() {
-                // Clear the token from localStorage
-                localStorage.removeItem('token');
+        // Logout functionality
+        function logout() {
+            // Clear the token from localStorage
+            localStorage.removeItem('token');
             // Redirect to the home or login page
             window.location.href = '/index.html';
         }
-    
 
-
+        // Load recommended courses on page load
+        loadRecommendedCourses();
     </script>
 </body>
+
 </html>
